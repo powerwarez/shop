@@ -56,7 +56,7 @@ function App() {
               console.log(result.data);
             })
             .catch(() => {
-              console.log("실패함ㅅㄱ");
+              console.log("실패함ㅅㄱㅇ");
             });
         }}
       >
