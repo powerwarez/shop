@@ -3,7 +3,15 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { useState } from "react";
 import data from "./data.js";
 import Detail from "./routes/Detail.js";
-import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import axios from "axios";
+// import styled from "styled-components";
+
+// let StyledBtn = styled.button`
+//   background: ${(props) => props.bg};
+//   color: black;
+//   padding: 10px;
+// `;
 
 function App() {
   let [shoes] = useState(data);
@@ -40,6 +48,20 @@ function App() {
         </Route>
         <Route path="*" element={<div>없는페이지요</div>} />
       </Routes>
+      <button
+        onClick={() => {
+          axios
+            .get("https://codingapple1.github.io/shop/data2.json")
+            .then((result) => {
+              console.log(result.data);
+            })
+            .catch(() => {
+              console.log("실패함ㅅㄱ");
+            });
+        }}
+      >
+        버튼
+      </button>
     </div>
   );
 }
