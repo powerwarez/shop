@@ -14,7 +14,8 @@ import axios from "axios";
 // `;
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
+  let [viewCounter, setViewCounter] = useState(1);
   let navigate = useNavigate();
 
   return (
@@ -48,20 +49,31 @@ function App() {
         </Route>
         <Route path="*" element={<div>없는페이지요</div>} />
       </Routes>
-      <button
-        onClick={() => {
-          axios
-            .get("https://codingapple1.github.io/shop/data2.json")
-            .then((result) => {
-              console.log(result.data);
-            })
-            .catch(() => {
-              console.log("실패함ㅅㄱ");
-            });
-        }}
-      >
-        버튼
-      </button>
+      {viewCounter < 3 ? (
+        <button
+          onClick={() => {
+            setViewCounter(viewCounter + 1);
+            axios
+              .get(
+                "https://codingapple1.github.io/shop/data" +
+                  (viewCounter + 1) +
+                  ".json"
+              )
+              .then((result) => {
+                let copy = [...shoes, ...result.data];
+                setShoes(copy);
+              })
+              .catch(() => {
+                console.log("실패함ㅅㄱ");
+              });
+            // Promise.all([ axios.get('url1') , axios.get('url2')]).then(()=>{
+            //   '두 개 다 성공하면 이거 실행해주세요'
+            // })
+          }}
+        >
+          더보기
+        </button>
+      ) : null}
     </div>
   );
 }

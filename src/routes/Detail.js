@@ -1,4 +1,4 @@
-import { InputGroup, Form, Button } from "react-bootstrap";
+import { InputGroup, Form, Button, Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,6 +6,7 @@ function Detail(props) {
   let [visible, setVisible] = useState(true);
   let [visibleInputAlert, setVisibleInputAlert] = useState(false);
   let [num, setNum] = useState(true);
+  let [tapValue, SetTapValue] = useState(0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -65,8 +66,55 @@ function Detail(props) {
           보내기
         </Button>
       </InputGroup>
+
+      <Nav activeKey="/home" variant="taps" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link0"
+            onClick={() => {
+              SetTapValue(0);
+            }}
+          >
+            Link
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link1"
+            onClick={() => {
+              SetTapValue(1);
+            }}
+          >
+            Link
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link2"
+            onClick={() => {
+              SetTapValue(2);
+            }}
+          >
+            Link
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TapContent tapValue={tapValue} />
     </div>
   );
+}
+
+function TapContent({ tapValue }) {
+  // if (props.tapValue == 0) {
+  //   return <div>Con1</div>;
+  // }
+  // if (props.tapValue == 1) {
+  //   return <div>Con2</div>;
+  // }
+  // if (props.tapValue == 2) {
+  //   return <div>Con3</div>;
+  // }
+  return [<div>Con1</div>, <div>Con2</div>, <div>Con3</div>][tapValue];
 }
 
 export default Detail;
